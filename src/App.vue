@@ -1,15 +1,22 @@
 <template lang='pug'>
   #app
     .content
+      //- 都道府県選択エリア
+      prefectures(
+        :list='prefectureList'
+        :selected-list='selectedPrefCodeList'
+        @click='clickPrefecture'
+      )
       //- グラフエリア
       graph(
-        :total-population='formattedTotalPopulation'
+        :total-population='totalPopulation'
       )
 </template>
 
 <script>
 import { computed, defineComponent, onMounted, reactive, toRefs } from '@vue/composition-api'
 
+import Prefectures from '@/components/Prefectures'
 import Graph from '@/components/Graph'
 
 import axiosBase from 'axios'
@@ -17,7 +24,7 @@ import axiosBase from 'axios'
 export default defineComponent({
   name: 'App',
 
-  components: { Graph },
+  components: { Prefectures, Graph },
 
   setup () {
     // APIインスタンスの作成
@@ -32,7 +39,7 @@ export default defineComponent({
       // 都道府県情報
       prefectureList: [],
       // 選択された都道府県
-      selectedPrefCodeList: [11, 12], // 仮データ
+      selectedPrefCodeList: [],
       // 総人口情報
       totalPopulation: []
     })
@@ -61,6 +68,7 @@ export default defineComponent({
       }).then(response => {
         state.totalPopulation.push({
           prefCode: prefCode,
+          prefName: getPrefName(prefCode),
           data: response.data.result.data[0].data
         })
       })
@@ -69,13 +77,34 @@ export default defineComponent({
     onMounted(() => {
       // 都道府県データ取得
       getPrefectureData()
-
-      // 人口データ取得
-      // TODO: 都道府県を選択したタイミングで、その都道府県のデータだけ取得するようにする
-      state.selectedPrefCodeList.forEach(code => {
-        getPopulationData(code)
-      })
     })
+
+    /**
+     * 都道府県をクリック
+     *
+     * @param {number} prefCode 都道府県コード
+     * @return {void}
+     */
+    const clickPrefecture = prefCode => {
+      // 選択済みprefCodeに含まれているかの確認
+      const prefCodeIndex = state.selectedPrefCodeList.indexOf(prefCode)
+
+      if (prefCodeIndex > -1) {
+        // 含まれている場合(チェックあり → なし)
+        state.selectedPrefCodeList.splice(prefCodeIndex, 1)
+
+        // グラフデータからデータを削除
+        const totalPopulationIndex = state.totalPopulation.findIndex(v => v.prefCode === prefCode)
+        if (totalPopulationIndex > 0) {
+          state.totalPopulation.splice(totalPopulationIndex, 1)
+        }
+      } else {
+        // 含まれていない場合(チェックなし → あり)
+        state.selectedPrefCodeList.push(prefCode)
+        // グラフデータにデータを追加
+        getPopulationData(prefCode)
+      }
+    }
 
     /**
      * 都道府県コードから都道府県名を取得
@@ -85,22 +114,12 @@ export default defineComponent({
      */
     const getPrefName = prefCode => {
       const prefData = state.prefectureList.find(v => v.prefCode === prefCode)
-      return prefData ? prefData.prefName : ''
+      return prefData == null ? '' : prefData.prefName
     }
-
-    /**
-     * グラフ用の整形済み人口データ
-     */
-    const formattedTotalPopulation = computed(() => {
-      return state.totalPopulation.map(v => {
-        v.prefName = getPrefName(v.prefCode)
-        return v
-      })
-    })
 
     return {
       ...toRefs(state),
-      formattedTotalPopulation
+      clickPrefecture
     }
   }
 })
