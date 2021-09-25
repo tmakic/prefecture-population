@@ -1,25 +1,40 @@
 <template lang='pug'>
   #app
-    h2 都道府県情報のテスト
-    p {{ prefectureList[0] }}
-
-    h2 人口情報のテスト
-    p {{ totalPopulation.label }}
+    .content
+      //- グラフエリア
+      graph(
+        :total-population='formattedTotalPopulation'
+      )
 </template>
 
 <script>
-import { defineComponent, onMounted, reactive, toRefs } from '@vue/composition-api'
+import { computed, defineComponent, onMounted, reactive, toRefs } from '@vue/composition-api'
+
+import Graph from '@/components/Graph'
+
 import axiosBase from 'axios'
 
 export default defineComponent({
   name: 'App',
 
+  components: { Graph },
+
   setup () {
+    // APIインスタンスの作成
     const axios = axiosBase.create({
       baseURL: process.env.RESAS_API_BASE_URL,
       headers: {
         'X-API-KEY': process.env.RESAS_API_KEY
       }
+    })
+
+    const state = reactive({
+      // 都道府県情報
+      prefectureList: [],
+      // 選択された都道府県
+      selectedPrefCodeList: [11, 12], // 仮データ
+      // 総人口情報
+      totalPopulation: []
     })
 
     /**
@@ -32,7 +47,10 @@ export default defineComponent({
     }
 
     /**
-     * 人口情報を取得
+     * 人口情報を取得・格納
+     *
+     * @param {number} prefCode 都道府県コード
+     * @return {void}
      */
     const getPopulationData = prefCode => {
       axios.get('/api/v1/population/composition/perYear', {
@@ -41,23 +59,49 @@ export default defineComponent({
           cityCode: '-'
         }
       }).then(response => {
-        state.totalPopulation = response.data.result.data[0]
+        state.totalPopulation.push({
+          prefCode: prefCode,
+          data: response.data.result.data[0].data
+        })
       })
     }
 
     onMounted(() => {
+      // 都道府県データ取得
       getPrefectureData()
-      getPopulationData(11)
+
+      // 人口データ取得
+      // TODO: 都道府県を選択したタイミングで、その都道府県のデータだけ取得するようにする
+      state.selectedPrefCodeList.forEach(code => {
+        getPopulationData(code)
+      })
     })
 
-    const state = reactive({
-      // 都道府県情報
-      prefectureList: [],
-      // 総人口情報
-      totalPopulation: []
+    /**
+     * 都道府県コードから都道府県名を取得
+     *
+     * @param {number} prefCode 都道府県コード
+     * @return {object} 都道府県名
+     */
+    const getPrefName = prefCode => {
+      const prefData = state.prefectureList.find(v => v.prefCode === prefCode)
+      return prefData ? prefData.prefName : ''
+    }
+
+    /**
+     * グラフ用の整形済み人口データ
+     */
+    const formattedTotalPopulation = computed(() => {
+      return state.totalPopulation.map(v => {
+        v.prefName = getPrefName(v.prefCode)
+        return v
+      })
     })
 
-    return { ...toRefs(state) }
+    return {
+      ...toRefs(state),
+      formattedTotalPopulation
+    }
   }
 })
 </script>
