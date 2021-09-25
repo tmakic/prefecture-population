@@ -1,3 +1,3 @@
-module.exports={
-  publicPath: "/prefecture-population/"
+module.exports = {
+  publicPath: '/prefecture-population/'
 }
