@@ -13,6 +13,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@vue/composition-api": "^1.2.2",
     "vue": "^2.5.2"
   },
   "devDependencies": {
@@ -54,6 +55,8 @@
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
     "postcss-url": "^7.2.1",
+    "pug": "^3.0.2",
+    "pug-plain-loader": "^1.1.0",
     "rimraf": "^2.6.0",
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
