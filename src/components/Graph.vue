@@ -17,6 +17,14 @@ export default defineComponent({
 
   props: {
     /**
+     * 実測値と推定値の境界年
+     */
+    boundaryYear: {
+      type: Number,
+      required: false,
+      default: 2015
+    },
+    /**
      * 選択している都道府県の総人口情報
      */
     totalPopulation: {
@@ -83,13 +91,18 @@ export default defineComponent({
      * X軸の目盛り
      */
     const xAxisCategory = computed(() => {
+      let array = []
       const firstPrefData = props.totalPopulation[0]
 
       if (!firstPrefData) return []
 
-      return firstPrefData.data.map(v => {
-        return v.year + '年'
+      firstPrefData.data.forEach(v => {
+        if (v.year <= props.boundaryYear) {
+          array.push(v.year + '年')
+        }
       })
+
+      return array
     })
 
     /**
@@ -100,8 +113,12 @@ export default defineComponent({
 
       props.totalPopulation.forEach(prefData => {
         // 全部の年の値を1つの配列にまとめる
-        const dataArray = prefData.data.map(v => {
-          return v.value
+        let dataArray = []
+        prefData.data.forEach(v => {
+          // boundaryYearより前の年（実績値）だけ追加
+          if (v.year <= props.boundaryYear) {
+            dataArray.push(v.value)
+          }
         })
 
         array.push({

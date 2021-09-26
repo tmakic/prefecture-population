@@ -40,6 +40,9 @@ export default defineComponent({
   setup (_props, { emit }) {
     /**
      * チェックボックスをクリック
+     *
+     * @param {number} prefCode 都道府県コード
+     * @return {void}
      */
     const input = prefCode => {
       emit('click', prefCode)

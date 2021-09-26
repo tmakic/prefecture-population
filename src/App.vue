@@ -9,12 +9,13 @@
       )
       //- グラフエリア
       graph(
+        :boundary-year='boundaryYear'
         :total-population='totalPopulation'
       )
 </template>
 
 <script>
-import { computed, defineComponent, onMounted, reactive, toRefs } from '@vue/composition-api'
+import { defineComponent, onMounted, reactive, toRefs } from '@vue/composition-api'
 
 import Prefectures from '@/components/Prefectures'
 import Graph from '@/components/Graph'
@@ -40,6 +41,8 @@ export default defineComponent({
       prefectureList: [],
       // 選択された都道府県
       selectedPrefCodeList: [],
+      // 実測値と推定値の境界年
+      boundaryYear: null,
       // 総人口情報
       totalPopulation: []
     })
@@ -66,10 +69,14 @@ export default defineComponent({
           cityCode: '-'
         }
       }).then(response => {
+        const result = response.data.result
+        if (!state.boundaryYear) {
+          state.boundaryYear = result.boundaryYear
+        }
         state.totalPopulation.push({
           prefCode: prefCode,
           prefName: getPrefName(prefCode),
-          data: response.data.result.data[0].data
+          data: result.data[0].data
         })
       })
     }
