@@ -10,12 +10,14 @@
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit",
+    "prettier": "prettier --write '{src,test}/**/{*.vue,*.js}'",
     "build": "node build/build.js"
   },
   "dependencies": {
     "@vue/composition-api": "^1.2.2",
     "axios": "^0.21.4",
     "highcharts-vue": "^1.4.0",
+    "prettier": "^2.4.1",
     "vue": "^2.5.2"
   },
   "devDependencies": {
@@ -36,11 +38,13 @@
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.0",
     "eslint": "^4.15.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.7.1",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-node": "^5.2.0",
+    "eslint-plugin-prettier-vue": "^3.1.0",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^3.0.1",
     "eslint-plugin-vue": "^4.0.0",

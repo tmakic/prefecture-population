@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
   name: 'Prefectures',
@@ -25,7 +25,7 @@ export default defineComponent({
     list: {
       type: Array,
       required: false,
-      default: () => ([])
+      default: () => []
     },
     /**
      * 選択している都道府県コードのリスト
@@ -33,26 +33,26 @@ export default defineComponent({
     selectedList: {
       type: Array,
       required: false,
-      default: () => ([])
+      default: () => []
     }
   },
 
-  setup (_props, { emit }) {
+  setup(_props, { emit }) {
     /**
      * チェックボックスをクリック
      *
      * @param {number} prefCode 都道府県コード
      * @return {void}
      */
-    const input = prefCode => {
-      emit('click', prefCode)
-    }
+    const input = (prefCode) => {
+      emit('click', prefCode);
+    };
 
     return {
       input
-    }
+    };
   }
-})
+});
 </script>
 
 <style>

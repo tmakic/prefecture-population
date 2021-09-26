@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: '/prefecture-population/'
-}
+  publicPath: "/prefecture-population/",
+};

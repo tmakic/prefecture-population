@@ -1,19 +1,19 @@
-<template lang='pug'>
+<template lang="pug">
   p {{ msg }}
 </template>
 
 <script>
-import { defineComponent, ref } from '@vue/composition-api'
+import { defineComponent, ref } from "@vue/composition-api";
 
 export default defineComponent({
-  name: 'HelloWorld',
+  name: "HelloWorld",
 
-  setup () {
-    const msg = ref('Welcome to Composition API')
+  setup() {
+    const msg = ref("Welcome to Composition API");
 
     return {
-      msg
-    }
-  }
-})
+      msg,
+    };
+  },
+});
 </script>

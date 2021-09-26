@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import { computed, defineComponent } from '@vue/composition-api'
-import { Chart } from 'highcharts-vue'
+import { computed, defineComponent } from '@vue/composition-api';
+import { Chart } from 'highcharts-vue';
 
 export default defineComponent({
   name: 'Graph',
@@ -30,28 +30,56 @@ export default defineComponent({
     totalPopulation: {
       type: Array,
       required: false,
-      default: () => ([])
+      default: () => []
     }
   },
 
-  setup (props) {
+  setup(props) {
     /**
      * highchartsのオプション
      */
     const options = computed(() => {
       return {
+        // NOTE: y軸ラベルが見切れないようにダミーのタイトルを入れている
         title: {
-          text: ''
+          text: 'dummy',
+          style: {
+            color: 'transparent'
+          }
         },
 
         yAxis: {
           title: {
-            text: '人口数'
+            text: '人口数',
+            align: 'high',
+            offset: 0,
+            rotation: 0,
+            x: -8,
+            y: -20,
+            style: {
+              'font-size': '16px',
+              'font-weight': '600'
+            }
+          },
+          labels: {
+            formatter: function () {
+              return this.value;
+            }
           }
         },
 
         xAxis: {
-          categories: xAxisCategory.value
+          categories: xAxisCategory.value,
+          title: {
+            text: '年度',
+            align: 'high',
+            offset: 6,
+            x: 50,
+            style: {
+              'font-size': '16px',
+              'font-weight': '600'
+            }
+          }
         },
 
         legend: {
@@ -70,74 +98,81 @@ export default defineComponent({
 
         series: chartData.value,
 
+        tooltip: {
+          formatter: function () {
+            return `<p>${this.series.name}</p><br><p>${this.x}年: ${this.y} 人</p>`;
+          }
+        },
+
         responsive: {
-          rules: [{
-            condition: {
-              maxWidth: 500
-            },
-            chartOptions: {
-              legend: {
-                layout: 'horizontal',
-                align: 'center',
-                verticalAlign: 'bottom'
+          rules: [
+            {
+              condition: {
+                maxWidth: 500
+              },
+              chartOptions: {
+                legend: {
+                  layout: 'horizontal',
+                  align: 'center',
+                  verticalAlign: 'bottom'
+                }
               }
             }
-          }]
+          ]
         }
-      }
-    })
+      };
+    });
 
     /**
      * X軸の目盛り
      */
     const xAxisCategory = computed(() => {
-      let array = []
-      const firstPrefData = props.totalPopulation[0]
+      let array = [];
+      const firstPrefData = props.totalPopulation[0];
 
-      if (!firstPrefData) return []
+      if (!firstPrefData) return [];
 
-      firstPrefData.data.forEach(v => {
+      firstPrefData.data.forEach((v) => {
         if (v.year <= props.boundaryYear) {
-          array.push(v.year + '年')
+          array.push(v.year);
         }
-      })
+      });
 
-      return array
-    })
+      return array;
+    });
 
     /**
      * グラフデータ
      */
     const chartData = computed(() => {
-      let array = []
+      let array = [];
 
-      props.totalPopulation.forEach(prefData => {
+      props.totalPopulation.forEach((prefData) => {
         // 全部の年の値を1つの配列にまとめる
-        let dataArray = []
-        prefData.data.forEach(v => {
+        let dataArray = [];
+        prefData.data.forEach((v) => {
           // boundaryYearより前の年（実績値）だけ追加
           if (v.year <= props.boundaryYear) {
-            dataArray.push(v.value)
+            dataArray.push(v.value);
           }
-        })
+        });
 
         array.push({
           name: prefData.prefName,
           data: dataArray
-        })
-      })
+        });
+      });
 
-      return array
-    })
+      return array;
+    });
 
     return {
       options,
       xAxisCategory,
       chartData
-    }
+    };
   }
-})
+});
 </script>
 
-<style>
-</style>
+<style></style>
