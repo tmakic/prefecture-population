@@ -5,7 +5,7 @@
       prefectures(
         :list='prefectureList'
         :selected-list='selectedPrefCodeList'
-        @click='clickPrefecture'
+        @click='clickPrefecture($event)'
       )
       //- グラフエリア
       graph(
@@ -44,7 +44,7 @@ export default defineComponent({
     const state = reactive({
       // 都道府県情報
       prefectureList: [],
-      // 選択された都道府県
+      // 選択された都道府県コード
       selectedPrefCodeList: [],
       // 実測値と推定値の境界年
       boundaryYear: null,
@@ -100,7 +100,7 @@ export default defineComponent({
      * @return {void}
      */
     const clickPrefecture = (prefCode) => {
-      // 選択済みprefCodeに含まれているかの確認
+      // 選択済み都道府県コードに含まれているかの確認
       const prefCodeIndex = state.selectedPrefCodeList.indexOf(prefCode);
 
       if (prefCodeIndex > -1) {
@@ -142,3 +142,12 @@ export default defineComponent({
   }
 });
 </script>
+
+<style>
+.content {
+  padding: 0 20px;
+}
+.content > *:nth-child(n + 2) {
+  margin-top: 40px;
+}
+</style>

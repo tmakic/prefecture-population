@@ -4,18 +4,10 @@ import Vue from 'vue';
 import App from './App';
 
 import VueCompositionApi from '@vue/composition-api';
-// import HighchartsVue from 'highcharts-vue';
-
-// HighchartsVue.setOptions({
-//   lang: {
-//     thousandsSep: ','
-//   }
-// });
 
 Vue.config.productionTip = false;
 
 Vue.use(VueCompositionApi);
-// Vue.use(HighchartsVue);
 
 /* eslint-disable no-new */
 new Vue({
