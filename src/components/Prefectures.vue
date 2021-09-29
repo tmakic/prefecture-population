@@ -2,16 +2,16 @@
   .prefecture-area
     h2.prefecture-title 都道府県
     .prefecture-body
-      .prefecture-option(v-for='item in list')
+      .prefecture-option(v-for="item in list")
         input(
-          :ref='`prefecture-${item.prefCode}`'
-          :id='`prefecture-${item.prefCode}`'
-          name='prefecture'
-          type='checkbox'
-          :checked='selectedList.includes(item.prefCode)'
-          @change='input(item.prefCode)'
+          :ref="`prefecture-${item.prefCode}`"
+          :id="`prefecture-${item.prefCode}`"
+          name="prefecture"
+          type="checkbox"
+          :checked="selectedList.includes(item.prefCode)"
+          @change="input(item.prefCode)"
         )
-        label(:for='`prefecture-${item.prefCode}`')
+        label(:for="`prefecture-${item.prefCode}`")
           | {{ item.prefName }}
 </template>
 

@@ -3,14 +3,14 @@
     .content
       //- 都道府県選択エリア
       prefectures(
-        :list='prefectureList'
-        :selected-list='selectedPrefCodeList'
-        @click='clickPrefecture($event)'
+        :list="prefectureList"
+        :selected-list="selectedPrefCodeList"
+        @click="clickPrefecture($event)"
       )
       //- グラフエリア
       graph(
-        :boundary-year='boundaryYear'
-        :total-population='totalPopulation'
+        :boundary-year="boundaryYear"
+        :total-population="totalPopulation"
       )
 </template>
 
