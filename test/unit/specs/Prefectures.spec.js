@@ -1,14 +1,19 @@
-import { mount } from '@vue/test-utils'
+import { createLocalVue, mount } from '@vue/test-utils'
+import VueCompositionApi from '@vue/composition-api';
 import Prefectures from "@/components/Prefectures";
+
+const localVue = createLocalVue();
+localVue.use(VueCompositionApi);
 
 describe("Prefectures.vue", () => {
   it("コンポーネントがmountされること", () => {
-    const wrapper = mount (Prefectures)
-    expect(wrapper.exists()).toBe(true)
+    const wrapper = mount (Prefectures, { localVue });
+    expect(wrapper.exists()).toBe(true);
   });
 
   describe("チェックボックスの検証", () => {
     const wrapper = mount (Prefectures, {
+      localVue,
       propsData:{
         list: [
           { "prefCode": 1, "prefName": "北海道" },
@@ -27,26 +32,26 @@ describe("Prefectures.vue", () => {
     });
 
     it("都道府県の数だけチェックボックスが生成されること", () => {
-      const inputs = wrapper.findAll('input[type="checkbox"]')
+      const inputs = wrapper.findAll('input[type="checkbox"]');
       expect(inputs.length).toBe(10);
     });
 
     it("選択済み都道府県にチェックが付くこと", () => {
-      const inputPref5 = wrapper.find('#prefecture-5')
+      const inputPref5 = wrapper.find('#prefecture-5');
       expect(inputPref5.element.checked).toBe(true);
 
-      const inputPref6 = wrapper.find('#prefecture-6')
+      const inputPref6 = wrapper.find('#prefecture-6');
       expect(inputPref6.element.checked).toBe(false);
 
-      const inputPref7 = wrapper.find('#prefecture-7')
+      const inputPref7 = wrapper.find('#prefecture-7');
       expect(inputPref7.element.checked).toBe(true);
     });
 
-    it("チェックボックス押下でemitが発行されること", () => {
-      // FIXME: エラーが出る。またemitがカウントされない
-      const inputPref6 = wrapper.find('#prefecture-6')
-      inputPref6.trigger('change', {prefCode: 6 })
-      console.log(wrapper.emitted())
+    it("チェックボックス押下で、ペイロードにprefCodeを持つemitが発行されること", () => {
+      const inputPref6 = wrapper.find('#prefecture-6');
+      inputPref6.trigger('change', {prefCode: 6 });
+      expect(wrapper.emitted().click).toBeTruthy();
+      expect(wrapper.emitted().click[0]).toEqual([6]);
     });
   })
 });
