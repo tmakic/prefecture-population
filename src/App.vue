@@ -146,7 +146,7 @@ export default defineComponent({
 <style>
 .content {
   padding: 0 20px;
-  color: #333333;
+  color: #333;
 }
 .content > *:nth-child(n + 2) {
   margin-top: 40px;

@@ -188,7 +188,7 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #EEE;
+  background-color: #eee;
   font-size: 20px;
   font-weight: 600;
   color: #777;
