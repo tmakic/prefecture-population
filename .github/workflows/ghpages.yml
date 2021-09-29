@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-20.04
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
+    env:
+      RESAS_API_KEY: ${{ secrets.RESAS_API_KEY }}
+      RESAS_API_BASE_URL: ${{ secrets.RESAS_API_BASE_URL }}
     steps:
       - uses: actions/checkout@v2
 
