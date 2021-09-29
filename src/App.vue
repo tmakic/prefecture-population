@@ -111,7 +111,7 @@ export default defineComponent({
         const totalPopulationIndex = state.totalPopulation.findIndex(
           (v) => v.prefCode === prefCode
         );
-        if (totalPopulationIndex > 0) {
+        if (totalPopulationIndex > -1) {
           state.totalPopulation.splice(totalPopulationIndex, 1);
         }
       } else {
@@ -146,6 +146,7 @@ export default defineComponent({
 <style>
 .content {
   padding: 0 20px;
+  color: #333333;
 }
 .content > *:nth-child(n + 2) {
   margin-top: 40px;

@@ -1,8 +1,13 @@
 <template lang='pug'>
   .graph-area
-    highcharts(
-      :options="options"
-    )
+    template(v-if="totalPopulation.length > 0")
+      //- グラフ
+      highcharts(
+        :options="options"
+      )
+    template(v-else)
+      //- エンプティステート
+      .empty-panel 都道府県を選択してください
 </template>
 
 <script>
@@ -176,4 +181,17 @@ export default defineComponent({
 });
 </script>
 
-<style></style>
+<style>
+.empty-panel {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #EEE;
+  font-size: 20px;
+  font-weight: 600;
+  color: #777;
+  border-radius: 10px;
+}
+</style>
