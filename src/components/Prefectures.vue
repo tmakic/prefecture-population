@@ -1,15 +1,18 @@
 <template lang='pug'>
   .prefecture-area
-    .prefecture-option(v-for='item in list')
-      input(
-        :id='`prefecture-${item.prefCode}`'
-        name='prefecture'
-        type='checkbox'
-        :value='selectedList.includes(item.prefCode)'
-        @input='input(item.prefCode)'
-      )
-      label(:for='`prefecture-${item.prefCode}`')
-        | {{ item.prefName }}
+    h2.prefecture-title 都道府県
+    .prefecture-body
+      .prefecture-option(v-for="item in list")
+        input(
+          :ref="`prefecture-${item.prefCode}`"
+          :id="`prefecture-${item.prefCode}`"
+          name="prefecture"
+          type="checkbox"
+          :checked="selectedList.includes(item.prefCode)"
+          @change="input(item.prefCode)"
+        )
+        label(:for="`prefecture-${item.prefCode}`")
+          | {{ item.prefName }}
 </template>
 
 <script>
@@ -56,7 +59,7 @@ export default defineComponent({
 </script>
 
 <style>
-.prefecture-area {
+.prefecture-body {
   display: flex;
   flex-wrap: wrap;
 }

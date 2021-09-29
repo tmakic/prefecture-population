@@ -1,7 +1,8 @@
 <template lang='pug'>
-  highcharts(
-    :options='options'
-  )
+  .graph-area
+    highcharts(
+      :options="options"
+    )
 </template>
 
 <script>

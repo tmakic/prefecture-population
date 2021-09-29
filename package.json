@@ -11,7 +11,8 @@
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit",
     "prettier": "prettier --write '{src,test}/**/{*.vue,*.js}'",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "test:debug": "node --inspect-brk node_modules/.bin/vue-cli-service test:unit --no-cache --watch --runInBand"
   },
   "dependencies": {
     "@vue/composition-api": "^1.2.2",
@@ -21,6 +22,7 @@
     "vue": "^2.5.2"
   },
   "devDependencies": {
+    "@vue/test-utils": "^1.2.2",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.2.1",

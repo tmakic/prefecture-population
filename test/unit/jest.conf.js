@@ -1,6 +1,7 @@
 const path = require("path");
 
 module.exports = {
+  testURL: "http://localhost/",
   rootDir: path.resolve(__dirname, "../../"),
   moduleFileExtensions: ["js", "json", "vue"],
   moduleNameMapper: {
@@ -19,4 +20,5 @@ module.exports = {
     "!src/main.js",
     "!**/node_modules/**",
   ],
+  transformIgnorePatterns: ['/node_modules/(?!@babel)']
 };
