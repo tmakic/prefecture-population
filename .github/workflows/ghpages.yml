@@ -30,7 +30,9 @@ jobs:
       - name: Create .env file
         run: |
           touch .env
+          echo "RESAS_API_KEY=${{ secrets.RESAS_API_KEY }}"
           echo "RESAS_API_KEY=${{ secrets.RESAS_API_KEY }}" >> .env
+          echo "RESAS_API_BASE_URL=${{ secrets.RESAS_API_BASE_URL }}"
           echo "RESAS_API_BASE_URL=${{ secrets.RESAS_API_BASE_URL }}" >> .env
 
       - run: npm ci
