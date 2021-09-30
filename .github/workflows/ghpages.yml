@@ -11,9 +11,6 @@ jobs:
     runs-on: ubuntu-20.04
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
-    env:
-      RESAS_API_KEY: ${{ secrets.RESAS_API_KEY }}
-      RESAS_API_BASE_URL: ${{ secrets.RESAS_API_BASE_URL }}
     steps:
       - uses: actions/checkout@v2
 
@@ -29,6 +26,12 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+            
+      - name: Create .env file
+        run: |
+          touch .env
+          echo "RESAS_API_KEY=${{ secrets.RESAS_API_KEY }}" >> .env
+          echo "RESAS_API_BASE_URL=${{ secrets.RESAS_API_BASE_URL }}" >> .env
 
       - run: npm ci
       - run: npm run build
