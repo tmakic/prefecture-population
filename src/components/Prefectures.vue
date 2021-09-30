@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
   .prefecture-area
     h2.prefecture-title 都道府県
     .prefecture-body
@@ -48,7 +48,7 @@ export default defineComponent({
      * @param {number} prefCode 都道府県コード
      * @return {void}
      */
-    const input = (prefCode) => {
+    const input = prefCode => {
       emit('click', prefCode);
     };
 

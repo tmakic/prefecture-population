@@ -1,12 +1,12 @@
-import { createLocalVue, mount, shallowMount } from '@vue/test-utils'
+import { createLocalVue, mount, shallowMount } from '@vue/test-utils';
 import VueCompositionApi from '@vue/composition-api';
-import flushPromises from 'flush-promises'
+import flushPromises from 'flush-promises';
 
-import App from "@/App";
-import Prefectures from "@/components/Prefectures";
+import App from '@/App';
+import Prefectures from '@/components/Prefectures';
 
-import mockAxios from 'axios'
-import mockData from '../../mockData'
+import mockAxios from 'axios';
+import mockData from '../../mockData';
 
 const { mockPrefectureList, mockPopulationResult } = mockData();
 
@@ -15,39 +15,39 @@ const localVue = createLocalVue();
 localVue.use(VueCompositionApi);
 
 // axiosのモック
-mockAxios.get.mockImplementation((url)=> {
+mockAxios.get.mockImplementation(url => {
   switch (url) {
     case '/api/v1/prefectures':
-      return Promise.resolve({data: { result: mockPrefectureList }})
+      return Promise.resolve({ data: { result: mockPrefectureList } });
     case '/api/v1/population/composition/perYear':
-      return Promise.resolve({data: { result: mockPopulationResult }})
+      return Promise.resolve({ data: { result: mockPopulationResult } });
   }
-})
+});
 
-describe("App.vue", () => {
-  it("コンポーネントがmountされること", () => {
-    const wrapper = shallowMount (App)
-    expect(wrapper.exists()).toBe(true)
+describe('App.vue', () => {
+  it('コンポーネントがmountされること', () => {
+    const wrapper = shallowMount(App);
+    expect(wrapper.exists()).toBe(true);
   });
 
-  it("取得した都道府県データがprefectureListに格納されること", async () => {
-    const wrapper = mount (App, {
+  it('取得した都道府県データがprefectureListに格納されること', async () => {
+    const wrapper = mount(App, {
       localVue,
       sync: false
-    })
+    });
 
     await flushPromises();
 
     expect(wrapper.vm.$data.prefectureList.length).toBe(10);
   });
 
-  describe("Prefecturesからemitを受け取けとったときの挙動の検証", () => {
-    const wrapper = mount (App, {
+  describe('Prefecturesからemitを受け取けとったときの挙動の検証', () => {
+    const wrapper = mount(App, {
       localVue,
       sync: false
     });
 
-    it("Prefecturesでemitした都道府県が未選択だった場合、新たにデータが追加されること", async () => {
+    it('Prefecturesでemitした都道府県が未選択だった場合、新たにデータが追加されること', async () => {
       // emit前のtotalPopulationは空配列であることの確認
       expect(wrapper.vm.$data.totalPopulation.length).toBe(0);
       // emit前のselectedPrefCodeListは空配列であることの確認
@@ -66,7 +66,7 @@ describe("App.vue", () => {
       expect(wrapper.vm.$data.selectedPrefCodeList[0]).toBe(6);
     });
 
-    it("Prefecturesでemitした都道府県が選択済みだった場合、データが削除されること", async () => {
+    it('Prefecturesでemitした都道府県が選択済みだった場合、データが削除されること', async () => {
       // emit前のtotalPopulationは、prefCode: 6 (山形県) のデータが1つだけ入っていることの確認
       expect(wrapper.vm.$data.totalPopulation.length).toBe(1);
       expect(wrapper.vm.$data.totalPopulation[0].prefCode).toBe(6);
@@ -83,5 +83,5 @@ describe("App.vue", () => {
       // emit後のselectedPrefCodeListは空配列であることの確認
       expect(wrapper.vm.$data.selectedPrefCodeList.length).toBe(0);
     });
-  })
+  });
 });

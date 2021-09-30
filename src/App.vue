@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
   #app
     .content
       //- 都道府県選択エリア
@@ -56,7 +56,7 @@ export default defineComponent({
      * 都道府県情報を取得
      */
     const getPrefectureData = () => {
-      axios.get('/api/v1/prefectures').then((response) => {
+      axios.get('/api/v1/prefectures').then(response => {
         state.prefectureList = response.data.result;
       });
     };
@@ -67,7 +67,7 @@ export default defineComponent({
      * @param {number} prefCode 都道府県コード
      * @return {void}
      */
-    const getPopulationData = (prefCode) => {
+    const getPopulationData = prefCode => {
       axios
         .get('/api/v1/population/composition/perYear', {
           params: {
@@ -75,7 +75,7 @@ export default defineComponent({
             cityCode: '-'
           }
         })
-        .then((response) => {
+        .then(response => {
           const result = response.data.result;
           if (!state.boundaryYear) {
             state.boundaryYear = result.boundaryYear;
@@ -99,7 +99,7 @@ export default defineComponent({
      * @param {number} prefCode 都道府県コード
      * @return {void}
      */
-    const clickPrefecture = (prefCode) => {
+    const clickPrefecture = prefCode => {
       // 選択済み都道府県コードに含まれているかの確認
       const prefCodeIndex = state.selectedPrefCodeList.indexOf(prefCode);
 
@@ -109,7 +109,7 @@ export default defineComponent({
 
         // グラフデータからデータを削除
         const totalPopulationIndex = state.totalPopulation.findIndex(
-          (v) => v.prefCode === prefCode
+          v => v.prefCode === prefCode
         );
         if (totalPopulationIndex > -1) {
           state.totalPopulation.splice(totalPopulationIndex, 1);
@@ -128,10 +128,8 @@ export default defineComponent({
      * @param {number} prefCode 都道府県コード
      * @return {object} 都道府県名
      */
-    const getPrefName = (prefCode) => {
-      const prefData = state.prefectureList.find(
-        (v) => v.prefCode === prefCode
-      );
+    const getPrefName = prefCode => {
+      const prefData = state.prefectureList.find(v => v.prefCode === prefCode);
       return prefData == null ? '' : prefData.prefName;
     };
 

@@ -16,6 +16,7 @@ module.exports = {
     'standard',
     'plugin:prettier-vue/recommended',
     'prettier',
+    'eslint-config-prettier'
   ],
   // required to lint *.vue files
   plugins: ['vue'],

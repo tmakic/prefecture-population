@@ -1,8 +1,8 @@
-import { createLocalVue, mount } from '@vue/test-utils'
+import { createLocalVue, mount } from '@vue/test-utils';
 import VueCompositionApi from '@vue/composition-api';
-import Graph from "@/components/Graph";
+import Graph from '@/components/Graph';
 
-import mockData from '../../mockData'
+import mockData from '../../mockData';
 
 // composition APIを使えるようにする
 const localVue = createLocalVue();
@@ -11,9 +11,9 @@ localVue.use(VueCompositionApi);
 // モックデータ
 const { mockTotalPopulation } = mockData();
 
-describe("Graph.vue", () => {
-  it("コンポーネントがmountされること", () => {
-    const wrapper = mount (Graph, {
+describe('Graph.vue', () => {
+  it('コンポーネントがmountされること', () => {
+    const wrapper = mount(Graph, {
       localVue,
       propsData: {
         totalPopulation: mockTotalPopulation
@@ -22,8 +22,8 @@ describe("Graph.vue", () => {
     expect(wrapper.exists()).toBe(true);
   });
 
-  it("boundaryYear以前の年度のみがX軸になること", () => {
-    const wrapper = mount (Graph, {
+  it('boundaryYear以前の年度のみがX軸になること', () => {
+    const wrapper = mount(Graph, {
       localVue,
       propsData: {
         totalPopulation: mockTotalPopulation,
@@ -39,8 +39,8 @@ describe("Graph.vue", () => {
     expect(xAxisLabels.wrappers[11].text()).toBe('2015');
   });
 
-  it("都道府県データの数だけグラフが表示されること", () => {
-    const wrapper = mount (Graph, {
+  it('都道府県データの数だけグラフが表示されること', () => {
+    const wrapper = mount(Graph, {
       localVue,
       propsData: {
         totalPopulation: mockTotalPopulation

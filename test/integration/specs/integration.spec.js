@@ -1,11 +1,11 @@
-import { createLocalVue, mount } from '@vue/test-utils'
+import { createLocalVue, mount } from '@vue/test-utils';
 import VueCompositionApi from '@vue/composition-api';
-import flushPromises from 'flush-promises'
+import flushPromises from 'flush-promises';
 
-import App from "@/App";
+import App from '@/App';
 
-import mockAxios from 'axios'
-import mockData from '../../mockData'
+import mockAxios from 'axios';
+import mockData from '../../mockData';
 
 const { mockPrefectureList, mockPopulationResult } = mockData();
 
@@ -14,34 +14,34 @@ const localVue = createLocalVue();
 localVue.use(VueCompositionApi);
 
 // axiosのモック
-mockAxios.get.mockImplementation((url)=> {
+mockAxios.get.mockImplementation(url => {
   switch (url) {
     case '/api/v1/prefectures':
-      return Promise.resolve({data: { result: mockPrefectureList }});
+      return Promise.resolve({ data: { result: mockPrefectureList } });
     case '/api/v1/population/composition/perYear':
-      return Promise.resolve({data: { result: mockPopulationResult }});
+      return Promise.resolve({ data: { result: mockPopulationResult } });
   }
-})
+});
 
-describe("Integration test", () => {
-  it("取得した都道府県データの数だけチェックボックスが表示されること", async () => {
-    const wrapper = mount (App, {
+describe('Integration test', () => {
+  it('取得した都道府県データの数だけチェックボックスが表示されること', async () => {
+    const wrapper = mount(App, {
       localVue,
       sync: false
-    })
+    });
     await flushPromises();
 
     const inputs = wrapper.findAll('input[type="checkbox"]');
     expect(inputs.length).toBe(10);
   });
 
-  describe("Prefecturesで都道府県をクリックしたときの挙動の検証", () => {
-    const wrapper = mount (App, {
+  describe('Prefecturesで都道府県をクリックしたときの挙動の検証', () => {
+    const wrapper = mount(App, {
       localVue,
       sync: false
     });
 
-    it("Prefecturesでクリックした都道府県が未選択だった場合、新たにデータがグラフに表示されること", async () => {
+    it('Prefecturesでクリックした都道府県が未選択だった場合、新たにデータがグラフに表示されること', async () => {
       // グラフの折れ線が最初は0本であることの確認
       const graphLinesBefore = wrapper.findAll('.highcharts-tracker-line');
       expect(graphLinesBefore.length).toBe(0);
@@ -51,7 +51,7 @@ describe("Integration test", () => {
 
       // 山形県 (prefCode: 6) のチェックボックスをクリック
       const inputPref6 = wrapper.find('#prefecture-6');
-      inputPref6.trigger('click', {prefCode: 6 });
+      inputPref6.trigger('click', { prefCode: 6 });
 
       await flushPromises();
 
@@ -65,7 +65,7 @@ describe("Integration test", () => {
       expect(graphLegends.wrappers[0].text()).toBe('山形県');
     });
 
-    it("Prefecturesでクリックした都道府県が選択済みだった場合、データがグラフから削除されること", async () => {
+    it('Prefecturesでクリックした都道府県が選択済みだった場合、データがグラフから削除されること', async () => {
       // グラフの折れ線が最初は1本であることの確認
       const graphLinesBefore = wrapper.findAll('.highcharts-tracker-line');
       expect(graphLinesBefore.length).toBe(1);
@@ -75,7 +75,7 @@ describe("Integration test", () => {
 
       // 山形県 (prefCode: 6) のチェックボックスをクリック
       const inputPref6 = wrapper.find('#prefecture-6');
-      inputPref6.trigger('click', {prefCode: 6 });
+      inputPref6.trigger('click', { prefCode: 6 });
 
       await flushPromises();
 
@@ -87,5 +87,5 @@ describe("Integration test", () => {
       const graphLegendsAfter = wrapper.findAll('.highcharts-legend-item');
       expect(graphLegendsAfter.length).toBe(0);
     });
-  })
+  });
 });

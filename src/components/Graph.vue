@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
   .graph-area
     template(v-if="totalPopulation.length > 0")
       //- グラフ
@@ -138,7 +138,7 @@ export default defineComponent({
 
       if (!firstPrefData) return [];
 
-      firstPrefData.data.forEach((v) => {
+      firstPrefData.data.forEach(v => {
         if (v.year <= props.boundaryYear) {
           array.push(v.year);
         }
@@ -153,10 +153,10 @@ export default defineComponent({
     const chartData = computed(() => {
       let array = [];
 
-      props.totalPopulation.forEach((prefData) => {
+      props.totalPopulation.forEach(prefData => {
         // 全部の年の値を1つの配列にまとめる
         let dataArray = [];
-        prefData.data.forEach((v) => {
+        prefData.data.forEach(v => {
           // boundaryYearより前の年（実績値）だけ追加
           if (v.year <= props.boundaryYear) {
             dataArray.push(v.value);
