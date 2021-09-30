@@ -2,14 +2,14 @@ import { createLocalVue, mount } from '@vue/test-utils'
 import VueCompositionApi from '@vue/composition-api';
 import Graph from "@/components/Graph";
 
-import graphData from './mockData/graph'
+import mockData from './mockData'
 
 // composition APIを使えるようにする
 const localVue = createLocalVue();
 localVue.use(VueCompositionApi);
 
 // モックデータ
-const { mockTotalPopulation } = graphData();
+const { mockTotalPopulation } = mockData();
 
 describe("Graph.vue", () => {
   it("コンポーネントがmountされること", () => {

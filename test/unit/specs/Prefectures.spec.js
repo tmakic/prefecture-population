@@ -2,14 +2,14 @@ import { createLocalVue, mount } from '@vue/test-utils'
 import VueCompositionApi from '@vue/composition-api';
 import Prefectures from "@/components/Prefectures";
 
-import prefectureData from './mockData/prefectures'
+import mockData from './mockData'
 
 // composition APIを使えるようにする
 const localVue = createLocalVue();
 localVue.use(VueCompositionApi);
 
 // モックデータ
-const { mockPrefectureList } = prefectureData();
+const { mockPrefectureList } = mockData();
 
 describe("Prefectures.vue", () => {
   it("コンポーネントがmountされること", () => {
