@@ -5,6 +5,8 @@ import App from './App';
 
 import VueCompositionApi from '@vue/composition-api';
 
+import './assets/stylesheets/responsive.css';
+
 Vue.config.productionTip = false;
 
 Vue.use(VueCompositionApi);

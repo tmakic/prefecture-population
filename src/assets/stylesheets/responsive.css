@@ -1,0 +1,61 @@
+
+.content {
+  padding: 20px 10px;
+}
+.prefecture-option-container {
+  max-width: 300px;
+}
+
+/* NOTE: ブレークポイントはbootstrapをもとにした
+ * https://getbootstrap.jp/docs/5.0/layout/breakpoints/#available-breakpoints
+ */
+@media (min-width: 576px) {
+  /* Small devices (landscape phones, 576px and up) */
+  .prefecture-option-container {
+    max-width: 500px;
+  }
+}
+
+@media (min-width: 768px) {
+  /* Medium devices (tablets, 768px and up) */
+  .content {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+  .prefecture-option-container {
+    max-width: 700px;
+  }
+}
+
+@media (min-width: 992px) {
+  /* Large devices (desktops, 992px and up) */
+  .content {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  .prefecture-option-container {
+    max-width: 900px;
+  }
+}
+
+@media (min-width: 1200px) {
+  /* X-Large devices (large desktops, 1200px and up */
+  .content {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  .prefecture-option-container {
+    max-width: 1100px;
+  }
+}
+
+@media (min-width: 1400px) {
+  /* XX-Large devices (larger desktops, 1400px and up) */
+  .content {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  .prefecture-option-container {
+    max-width: 1300px;
+  }
+}
