@@ -45,6 +45,9 @@ describe("Integration test", () => {
       // グラフの折れ線が最初は0本であることの確認
       const graphLinesBefore = wrapper.findAll('.highcharts-tracker-line');
       expect(graphLinesBefore.length).toBe(0);
+      // グラフの凡例が最初は0個であることの確認
+      const graphLegendsBefore = wrapper.findAll('.highcharts-legend-item');
+      expect(graphLegendsBefore.length).toBe(0);
 
       // 山形県 (prefCode: 6) のチェックボックスをクリック
       const inputPref6 = wrapper.find('#prefecture-6');
@@ -67,8 +70,8 @@ describe("Integration test", () => {
       const graphLinesBefore = wrapper.findAll('.highcharts-tracker-line');
       expect(graphLinesBefore.length).toBe(1);
       // グラフの凡例が最初は1個であることの確認
-      const graphLegends = wrapper.findAll('.highcharts-legend-item');
-      expect(graphLegends.length).toBe(1);
+      const graphLegendsBefore = wrapper.findAll('.highcharts-legend-item');
+      expect(graphLegendsBefore.length).toBe(1);
 
       // 山形県 (prefCode: 6) のチェックボックスをクリック
       const inputPref6 = wrapper.find('#prefecture-6');
@@ -81,8 +84,8 @@ describe("Integration test", () => {
       expect(graphLinesAfter.length).toBe(0);
 
       // グラフの凡例情報が0個であることの確認
-      const graphLegends = wrapper.findAll('.highcharts-legend-item');
-      expect(graphLegends.length).toBe(0);
+      const graphLegendsAfter = wrapper.findAll('.highcharts-legend-item');
+      expect(graphLegendsAfter.length).toBe(0);
     });
   })
 });
