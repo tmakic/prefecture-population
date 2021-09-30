@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "npm run dev",
+    "start": "node server.js",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit",
@@ -17,6 +17,7 @@
   "dependencies": {
     "@vue/composition-api": "^1.2.2",
     "axios": "^0.21.4",
+    "express": "^4.17.1",
     "flush-promises": "^1.0.2",
     "highcharts-vue": "^1.4.0",
     "prettier": "^2.4.1",
