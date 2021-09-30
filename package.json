@@ -17,6 +17,7 @@
   "dependencies": {
     "@vue/composition-api": "^1.2.2",
     "axios": "^0.21.4",
+    "flush-promises": "^1.0.2",
     "highcharts-vue": "^1.4.0",
     "prettier": "^2.4.1",
     "vue": "^2.5.2"

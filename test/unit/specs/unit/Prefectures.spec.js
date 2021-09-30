@@ -2,7 +2,7 @@ import { createLocalVue, mount } from '@vue/test-utils'
 import VueCompositionApi from '@vue/composition-api';
 import Prefectures from "@/components/Prefectures";
 
-import mockData from './mockData'
+import mockData from '../mockData'
 
 // composition APIを使えるようにする
 const localVue = createLocalVue();
@@ -44,7 +44,8 @@ describe("Prefectures.vue", () => {
 
     it("チェックボックス押下で、ペイロードにprefCodeを持つemitが発行されること", () => {
       const inputPref6 = wrapper.find('#prefecture-6');
-      inputPref6.trigger('change', {prefCode: 6 });
+      inputPref6.trigger('click', {prefCode: 6 });
+
       expect(wrapper.emitted().click).toBeTruthy();
       expect(wrapper.emitted().click[0]).toEqual([6]);
     });

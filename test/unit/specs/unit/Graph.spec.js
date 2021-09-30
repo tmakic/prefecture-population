@@ -2,7 +2,7 @@ import { createLocalVue, mount } from '@vue/test-utils'
 import VueCompositionApi from '@vue/composition-api';
 import Graph from "@/components/Graph";
 
-import mockData from './mockData'
+import mockData from '../mockData'
 
 // composition APIを使えるようにする
 const localVue = createLocalVue();
@@ -31,6 +31,7 @@ describe("Graph.vue", () => {
       }
     });
 
+    // グラフX軸の目盛りのラベル情報を取得
     const xAxisLabels = wrapper.findAll('.highcharts-xaxis-labels text');
 
     expect(xAxisLabels.length).toBe(12); // 1960, 1965, ... 2015までの12目盛り
@@ -46,8 +47,8 @@ describe("Graph.vue", () => {
       }
     });
 
+    // グラフの折れ線が3本であることの確認 (mockTotalPopulation のレコードが3件のため)
     const graphLines = wrapper.findAll('.highcharts-tracker-line');
-
     expect(graphLines.length).toBe(3);
   });
 });

@@ -56,7 +56,7 @@ export default defineComponent({
      * 都道府県情報を取得
      */
     const getPrefectureData = () => {
-      axios.get('api/v1/prefectures').then((response) => {
+      axios.get('/api/v1/prefectures').then((response) => {
         state.prefectureList = response.data.result;
       });
     };
