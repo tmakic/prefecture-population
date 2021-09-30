@@ -2,7 +2,7 @@ import { createLocalVue, mount } from '@vue/test-utils'
 import VueCompositionApi from '@vue/composition-api';
 import Graph from "@/components/Graph";
 
-import mockData from '../mockData'
+import mockData from '../../mockData'
 
 // composition APIを使えるようにする
 const localVue = createLocalVue();

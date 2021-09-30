@@ -5,7 +5,7 @@ import flushPromises from 'flush-promises'
 import App from "@/App";
 
 import mockAxios from 'axios'
-import mockData from '../mockData'
+import mockData from '../../mockData'
 
 const { mockPrefectureList, mockPopulationResult } = mockData();
 

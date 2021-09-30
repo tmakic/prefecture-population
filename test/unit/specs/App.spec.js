@@ -6,7 +6,7 @@ import App from "@/App";
 import Prefectures from "@/components/Prefectures";
 
 import mockAxios from 'axios'
-import mockData from '../mockData'
+import mockData from '../../mockData'
 
 const { mockPrefectureList, mockPopulationResult } = mockData();
 
