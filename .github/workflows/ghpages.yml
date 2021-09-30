@@ -26,17 +26,12 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-            
-      - name: Create .env file
-        run: |
-          touch .env
-          echo "VUE_APP_RESAS_API_KEY=${{ secrets.RESAS_API_KEY }}"
-          echo "VUE_APP_RESAS_API_KEY=${{ secrets.RESAS_API_KEY }}" >> .env
-          echo "VUE_APP_RESAS_API_BASE_URL=${{ secrets.RESAS_API_BASE_URL }}"
-          echo "VUE_APP_RESAS_API_BASE_URL=${{ secrets.RESAS_API_BASE_URL }}" >> .env
 
       - run: npm ci
-      - run: npm run build
+      - run: |
+          export VUE_APP_RESAS_API_KEY=${{ secrets.RESAS_API_KEY }}
+          export VUE_APP_RESAS_API_BASE_URL=${{ secrets.RESAS_API_BASE_URL }}
+          npm run build
 
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
