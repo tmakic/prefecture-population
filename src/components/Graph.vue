@@ -2,7 +2,7 @@
   .graph-area
     template(v-if="totalPopulation.length > 0")
       //- グラフ
-      highcharts(
+      chart(
         :options="options"
       )
     template(v-else)
@@ -18,7 +18,7 @@ export default defineComponent({
   name: 'Graph',
 
   components: {
-    highcharts: Chart
+    Chart
   },
 
   props: {
