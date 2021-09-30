@@ -63,7 +63,7 @@ export default defineComponent({
 .prefecture-body {
   display: flex;
   justify-content: center;
-  align-items: center;;
+  align-items: center;
 }
 .prefecture-option-container {
   display: flex;

@@ -1,4 +1,4 @@
-import { createLocalVue, mount, shallowMount } from '@vue/test-utils'
+import { createLocalVue, mount } from '@vue/test-utils'
 import VueCompositionApi from '@vue/composition-api';
 import flushPromises from 'flush-promises'
 
