@@ -35,9 +35,9 @@ export default defineComponent({
   setup() {
     // APIインスタンスの作成
     const axios = axiosBase.create({
-      baseURL: process.env.RESAS_API_BASE_URL,
+      baseURL: process.env.VUE_APP_RESAS_API_BASE_URL,
       headers: {
-        'X-API-KEY': process.env.RESAS_API_KEY
+        'X-API-KEY': process.env.VUE_APP_RESAS_API_KEY
       }
     });
 
