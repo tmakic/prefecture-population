@@ -72,4 +72,8 @@ export default defineComponent({
 .prefecture-option {
   width: 96px;
 }
+.prefecture-option input,
+.prefecture-option label {
+  cursor: pointer;
+}
 </style>
